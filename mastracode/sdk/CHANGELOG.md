@@ -1,5 +1,18 @@
 # @mastra/code-sdk
 
+## 1.8.4-alpha.1
+
+### Patch Changes
+
+- Fixed agents receiving the host app's `AGENTS.md` when working in a different repository (for example, Mastra Factory runs). Instruction-file reminders now resolve relative paths against the session's project path and only load instruction files from inside that checkout. ([#25071](https://github.com/mastra-ai/mastra/pull/25071))
+
+- Updated dependencies [[`af4aed5`](https://github.com/mastra-ai/mastra/commit/af4aed50ad96b340d82a67c3f01cbf358b156ab2), [`3913a33`](https://github.com/mastra-ai/mastra/commit/3913a33fd5b13dc226b1ed6253c9357cb392dd04), [`56fef1c`](https://github.com/mastra-ai/mastra/commit/56fef1cdd92a671c3de2cc5e4a319c637f700cf4), [`4d40bd9`](https://github.com/mastra-ai/mastra/commit/4d40bd91ccb00db163365a319b5d82bfb56a9ace), [`d2f0cd7`](https://github.com/mastra-ai/mastra/commit/d2f0cd7c5d5f5f06cf5b65cf78a9f14ac052dbb1), [`676fcbf`](https://github.com/mastra-ai/mastra/commit/676fcbfc5f770ee45560c7b558b17ad5ff25d9e7)]:
+  - @mastra/core@1.72.0-alpha.1
+  - @mastra/observability@1.18.2-alpha.0
+  - @mastra/schema-compat@1.3.12-alpha.0
+  - @mastra/mcp@2.1.0
+  - @mastra/memory@1.32.2-alpha.1
+
 ## 1.8.4-alpha.0
 
 ### Patch Changes

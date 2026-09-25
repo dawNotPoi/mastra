@@ -1,5 +1,28 @@
 # @mastra/core
 
+## 1.72.0-alpha.1
+
+### Patch Changes
+
+- Fixed cost estimates for Anthropic 1-hour prompt-cache writes. The 5-minute and 1-hour cache-write token counts are now read from the provider's raw usage, so 1-hour writes are priced at their real rate instead of the cheaper 5-minute rate. ([#25011](https://github.com/mastra-ai/mastra/issues/25011)) ([#25089](https://github.com/mastra-ai/mastra/pull/25089))
+
+- Fixed tool search loading every `search_tools` hit when `autoLoad` is `false`. Only `load_tool` now activates tools, so the tool list stays stable and the prompt cache is preserved across steps. ([#25076](https://github.com/mastra-ai/mastra/pull/25076))
+
+- Fixed durable and evented agents to reject invalid model timeout settings before starting a run. ([#25079](https://github.com/mastra-ai/mastra/pull/25079))
+
+- Added a `getBasePath` option to `AgentsMDInjector`. When set, relative tool paths resolve against that directory instead of `process.cwd()`, and `AGENTS.md`/`CLAUDE.md` files outside it are never injected. ([#25071](https://github.com/mastra-ai/mastra/pull/25071))
+
+  ```ts
+  new AgentsMDInjector({
+    getBasePath: () => '/path/to/checkout',
+  });
+  ```
+
+- Fixed DurableAgent streams to hide response metadata chunks and attribute finish chunks to the agent. ([#25078](https://github.com/mastra-ai/mastra/pull/25078))
+
+- Updated dependencies [[`3913a33`](https://github.com/mastra-ai/mastra/commit/3913a33fd5b13dc226b1ed6253c9357cb392dd04)]:
+  - @mastra/schema-compat@1.3.12-alpha.0
+
 ## 1.72.0-alpha.0
 
 ### Minor Changes

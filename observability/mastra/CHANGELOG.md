@@ -1,5 +1,14 @@
 # @mastra/observability
 
+## 1.18.2-alpha.0
+
+### Patch Changes
+
+- Fixed cost estimates for Anthropic 1-hour prompt-cache writes. The 5-minute and 1-hour cache-write token counts are now read from the provider's raw usage, so 1-hour writes are priced at their real rate instead of the cheaper 5-minute rate. ([#25011](https://github.com/mastra-ai/mastra/issues/25011)) ([#25089](https://github.com/mastra-ai/mastra/pull/25089))
+
+- Updated dependencies [[`af4aed5`](https://github.com/mastra-ai/mastra/commit/af4aed50ad96b340d82a67c3f01cbf358b156ab2), [`56fef1c`](https://github.com/mastra-ai/mastra/commit/56fef1cdd92a671c3de2cc5e4a319c637f700cf4), [`4d40bd9`](https://github.com/mastra-ai/mastra/commit/4d40bd91ccb00db163365a319b5d82bfb56a9ace), [`d2f0cd7`](https://github.com/mastra-ai/mastra/commit/d2f0cd7c5d5f5f06cf5b65cf78a9f14ac052dbb1), [`676fcbf`](https://github.com/mastra-ai/mastra/commit/676fcbfc5f770ee45560c7b558b17ad5ff25d9e7)]:
+  - @mastra/core@1.72.0-alpha.1
+
 ## 1.18.1
 
 ### Patch Changes

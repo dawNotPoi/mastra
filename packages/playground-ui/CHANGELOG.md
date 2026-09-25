@@ -1,5 +1,36 @@
 # @mastra/playground-ui
 
+## 60.0.0-alpha.1
+
+### Minor Changes
+
+- Added a `@mastra/playground-ui/lib/framework` entrypoint with `LinkComponentProvider` and `useLinkComponent`. Apps can pass their router's link component, `navigate` function and route paths to Studio components through the provider, so the components navigate with the app's own router. ([#25098](https://github.com/mastra-ai/mastra/pull/25098))
+
+  ```tsx
+  import { LinkComponentProvider, useLinkComponent } from '@mastra/playground-ui/lib/framework';
+
+  <LinkComponentProvider Link={Link} navigate={navigate} paths={paths}>
+    <App />
+  </LinkComponentProvider>;
+
+  const AgentLink = ({ agentId }: { agentId: string }) => {
+    const { Link, paths } = useLinkComponent();
+    return <Link href={paths.agentLink(agentId)}>Open agent</Link>;
+  };
+  ```
+
+- Added `@mastra/playground-ui/domains/scores` (`useTraceSpanScores`, `useScorers`, `useScorer`, `useScoresByScorerId`, `useTriggerScorer`, `SpanScoring`, `TraceScoresTab`, `ScoreDataPanel`, `ScoreAsItemDialog`) and `@mastra/playground-ui/domains/datasets` (`useDatasets`, `useInfiniteDatasets`, `useDataset`, `useDatasetMutations`, `SaveAsDatasetItemDialog`) so trace views can show and create scores without depending on the playground app. ([#25102](https://github.com/mastra-ai/mastra/pull/25102))
+
+  `LinkComponentPaths` now requires a `traceLink(traceId, spanId?)` entry; add it to the `paths` you pass to `LinkComponentProvider`.
+
+### Patch Changes
+
+- Updated dependencies [[`af4aed5`](https://github.com/mastra-ai/mastra/commit/af4aed50ad96b340d82a67c3f01cbf358b156ab2), [`56fef1c`](https://github.com/mastra-ai/mastra/commit/56fef1cdd92a671c3de2cc5e4a319c637f700cf4), [`4d40bd9`](https://github.com/mastra-ai/mastra/commit/4d40bd91ccb00db163365a319b5d82bfb56a9ace), [`d2f0cd7`](https://github.com/mastra-ai/mastra/commit/d2f0cd7c5d5f5f06cf5b65cf78a9f14ac052dbb1), [`676fcbf`](https://github.com/mastra-ai/mastra/commit/676fcbfc5f770ee45560c7b558b17ad5ff25d9e7)]:
+  - @mastra/core@1.72.0-alpha.1
+  - @mastra/client-js@1.51.0-alpha.1
+  - @mastra/memory@1.32.2-alpha.1
+  - @mastra/react@1.7.0-alpha.1
+
 ## 60.0.0-alpha.0
 
 ### Patch Changes
