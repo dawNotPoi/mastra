@@ -374,7 +374,16 @@ export class MongoDBSkillsStorage extends SkillsStorage {
 
   async list(args?: StorageListSkillsInput): Promise<StorageListSkillsOutput> {
     try {
-      const { page = 0, perPage: perPageInput, orderBy, authorId, visibility, metadata } = args || {};
+      const {
+        page = 0,
+        perPage: perPageInput,
+        orderBy,
+        authorId,
+        visibility,
+        status,
+        entityIds,
+        metadata,
+      } = args || {};
       const { field, direction } = this.parseOrderBy(orderBy);
 
       if (page < 0) {
@@ -401,6 +410,12 @@ export class MongoDBSkillsStorage extends SkillsStorage {
       }
       if (visibility) {
         filter.visibility = visibility;
+      }
+      if (status !== undefined) {
+        filter.status = status;
+      }
+      if (entityIds !== undefined) {
+        filter.id = { $in: entityIds };
       }
       if (metadata) {
         for (const [key, value] of Object.entries(metadata)) {
