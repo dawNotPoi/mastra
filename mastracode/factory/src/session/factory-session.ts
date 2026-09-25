@@ -138,8 +138,8 @@ export interface EnsureFactorySourceSessionArgs {
   orgId: string;
   factoryProjectId: string;
   branch: string;
-  /** Pick a specific linked repository by slug. Defaults to the first linked repository. */
-  repositorySlug?: string;
+  /** Pick the linked repository that the work item targets. */
+  repositorySlug: string;
   /**
    * Attribute the run to this user instead of the repo connector. Set when the
    * run has an interactive user — e.g. the person who approved a proposed run.
@@ -191,14 +191,24 @@ export type FactorySourceRepositoryResult =
  * The owner is whichever integration owns source control, matched by the
  * handle's own `integrationId` — nothing here is provider-specific.
  */
-export async function resolveFactorySourceRepository(args: {
-  sourceControl: SourceControlStorageHandle;
-  orgId: string;
-  factoryProjectId: string;
-  /** Pick a specific linked repository by slug. Defaults to the first linked repository. */
-  repositorySlug?: string;
-}): Promise<FactorySourceRepositoryResult> {
-  const { sourceControl, orgId, factoryProjectId, repositorySlug } = args;
+export async function resolveFactorySourceRepository(
+  args:
+    | {
+        sourceControl: SourceControlStorageHandle;
+        orgId: string;
+        factoryProjectId: string;
+        repositorySlug: string;
+      }
+    | {
+        sourceControl: SourceControlStorageHandle;
+        orgId: string;
+        factoryProjectId: string;
+        firstLinkedRepository: true;
+      },
+): Promise<FactorySourceRepositoryResult> {
+  const { sourceControl, orgId, factoryProjectId } = args;
+  const repositorySlug = 'repositorySlug' in args ? args.repositorySlug : undefined;
+  const firstLinkedRepository = 'firstLinkedRepository' in args;
 
   const connections = await sourceControl.connections.list({ orgId, factoryProjectId });
   const candidates = connections.filter(candidate => candidate.integrationId === sourceControl.integrationId);
@@ -219,7 +229,7 @@ export async function resolveFactorySourceRepository(args: {
         })),
       );
       resolved = resolvedRepositories.find(
-        candidate => candidate.repository && (!repositorySlug || candidate.repository.slug === repositorySlug),
+        candidate => candidate.repository && (firstLinkedRepository || candidate.repository.slug === repositorySlug),
       );
     } catch {
       // The connection no longer resolves (e.g. its installation was deleted).

@@ -384,7 +384,7 @@ export function createChannelResourceIdResolver(deps: SlackChannelDeps): Resolve
 
       const sourceControl = await resolveFactorySourceControl({ sourceControls, orgId, factoryProjectId });
       if (!sourceControl) return chatOnlyResourceId;
-      const repo = await resolveFactorySourceRepository({ sourceControl, orgId, factoryProjectId });
+      const repo = await resolveFactorySourceRepository({ sourceControl, orgId, factoryProjectId, firstLinkedRepository: true });
       if (!repo.found) return chatOnlyResourceId;
 
       const branch = threadBranch(thread.id);
